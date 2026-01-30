@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/sprout_base">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/appBarDash"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/sprout_dark"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="My Garden"
+            android:fontFamily="@font/chewy"
+            android:textSize="24sp"
+            android:textColor="@color/sprout_base"
+            android:layout_marginStart="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <ImageButton
+            android:id="@+id/btnLogout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/ic_lock_power_off"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            app:tint="@color/sprout_base"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefresh"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/appBarDash"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <TextView
+                    android:id="@+id/tvHello"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Hello, Gardener!"
+                    android:fontFamily="@font/chewy"
+                    android:textSize="32sp"
+                    android:textColor="@color/sprout_dark"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Organize your plants today."
+                    android:fontFamily="@font/fredoka"
+                    android:textSize="16sp"
+                    android:textColor="@color/sprout_brown"
+                    android:layout_marginTop="8dp"/>
+
+                <Space android:layout_width="match_parent" android:layout_height="30dp"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tvPlantsHeader"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="My Plants"
+                        android:fontFamily="@font/chewy"
+                        android:textSize="24sp"
+                        android:textColor="@color/sprout_dark"/>
+
+                    <ImageButton
+                        android:id="@+id/btnAddPlant"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toEndOf="@id/tvPlantsHeader"
+                        android:layout_marginStart="10dp"
+                        android:layout_centerVertical="true"
+                        android:src="@android:drawable/ic_input_add"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        app:tint="@color/sprout_dark"/>
+
+                    <TextView
+                        android:id="@+id/btnViewAllPlants"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="View All"
+                        android:fontFamily="@font/fredoka"
+                        android:textStyle="bold"
+                        android:textColor="@color/sprout_dark"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"/>
+                </RelativeLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvPlants"
+                    android:layout_width="match_parent"
+                    android:layout_height="220dp"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="10dp"/>
+
+                <TextView
+                    android:id="@+id/tvNoPlants"
+                    android:layout_width="match_parent"
+                    android:layout_height="220dp"
+                    android:text="No plants yet! 🌱"
+                    android:gravity="center"
+                    android:padding="20dp"
+                    android:fontFamily="@font/fredoka"
+                    android:visibility="gone"/>
+
+                <Space android:layout_width="match_parent" android:layout_height="30dp"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tvRemHeader"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Reminders"
+                        android:fontFamily="@font/chewy"
+                        android:textSize="24sp"
+                        android:textColor="@color/sprout_dark"/>
+
+                    <ImageButton
+                        android:id="@+id/btnAddReminder"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toEndOf="@id/tvRemHeader"
+                        android:layout_marginStart="10dp"
+                        android:layout_centerVertical="true"
+                        android:src="@android:drawable/ic_input_add"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        app:tint="@color/sprout_dark"/>
+
+                    <TextView
+                        android:id="@+id/btnViewAllReminders"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="View All"
+                        android:fontFamily="@font/fredoka"
+                        android:textStyle="bold"
+                        android:textColor="@color/sprout_dark"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"/>
+                </RelativeLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvReminders"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false"
+                    android.layout_marginTop="10dp"/>
+
+                <LinearLayout
+                    android:id="@+id/layoutNoReminders"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:padding="20dp"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="No pending tasks 🔔"
+                        android:fontFamily="@font/fredoka"
+                        android:textSize="16sp"
+                        android:layout_marginTop="8dp" />
+                </LinearLayout>
+
+            </LinearLayout>
+        </ScrollView>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

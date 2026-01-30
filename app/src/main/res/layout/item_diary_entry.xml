@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="16dp"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="3dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/tvEntryDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="14 Jan 2026"
+            android:fontFamily="@font/fredoka"
+            android:textSize="12sp"
+            android:textColor="#9E9E9E"
+            android:textStyle="bold"
+            android:layout_marginBottom="4dp"/>
+
+        <TextView
+            android:id="@+id/tvEntryTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Diary Title"
+            android:fontFamily="@font/fredoka"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/sprout_dark"
+            android:layout_marginBottom="4dp"/>
+
+        <TextView
+            android:id="@+id/tvEntryContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Diary content goes here..."
+            android:fontFamily="@font/fredoka"
+            android:textSize="14sp"
+            android:textColor="#616161"
+            android:layout_marginBottom="12dp"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvEntryImages"
+            android:layout_width="match_parent"
+            android:layout_height="110dp"
+            android:orientation="horizontal"
+            android:visibility="gone"/>
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

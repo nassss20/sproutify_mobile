@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/sprout_dark">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:padding="24dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="40dp"
+                app:cardElevation="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="32dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="24dp">
+
+                        <ImageButton
+                            android:id="@+id/btnBackEdit"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_arrow_back"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            app:tint="#BDBDBD"
+                            android:layout_centerVertical="true"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Edit Plant"
+                            android:fontFamily="@font/chewy"
+                            android:textSize="32sp"
+                            android:textColor="@color/sprout_dark"
+                            android:layout_centerInParent="true"/>
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:layout_marginBottom="24dp">
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
+                            app:cardCornerRadius="60dp"
+                            app:cardElevation="4dp">
+                            <ImageView
+                                android:id="@+id/imgEditPlant"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/ic_launcher_background"/>
+                        </androidx.cardview.widget.CardView>
+
+                        <TextView
+                            android:id="@+id/btnChangePhoto"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Change Photo"
+                            android:textColor="@color/sprout_brown"
+                            android:textStyle="bold"
+                            android:padding="8dp"
+                            android:layout_marginTop="8dp"/>
+                    </LinearLayout>
+
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"  text="Plant Name" style="@style/LabelText"/>
+                    <EditText
+                        android:id="@+id/etEditName"
+                        style="@style/InputField"
+                        android:hint="Plant Name"/>
+
+                    <Space android:layout_width="match_parent" android:layout_height="16dp"/>
+
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"  text="Date Planted" style="@style/LabelText"/>
+                    <EditText
+                        android:id="@+id/etEditDate"
+                        style="@style/InputField"
+                        android:focusable="false"
+                        android:drawableEnd="@android:drawable/ic_menu_my_calendar"/>
+
+                    <Space android:layout_width="match_parent" android:layout_height="16dp"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:layout_marginEnd="8dp">
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"  text="Last Watered" style="@style/LabelText"/>
+                            <EditText
+                                android:id="@+id/etEditWater"
+                                style="@style/InputField"
+                                android:focusable="false"
+                                android:drawableEnd="@android:drawable/ic_menu_my_calendar"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:layout_marginStart="8dp">
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"  text="Last Fertilized" style="@style/LabelText"/>
+                            <EditText
+                                android:id="@+id/etEditFert"
+                                style="@style/InputField"
+                                android:focusable="false"
+                                android:drawableEnd="@android:drawable/ic_menu_my_calendar"/>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <Space android:layout_width="match_parent" android:layout_height="16dp"/>
+
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"  text="Height (cm)" style="@style/LabelText"/>
+                    <EditText
+                        android:id="@+id/etEditHeight"
+                        style="@style/InputField"
+                        android:inputType="numberDecimal"/>
+
+                    <Space android:layout_width="match_parent" android:layout_height="16dp"/>
+
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"  text="Notes" style="@style/LabelText"/>
+                    <EditText
+                        android:id="@+id/etEditNotes"
+                        style="@style/InputField"
+                        android:minLines="3"
+                        android:gravity="top"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#EEEEEE"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginBottom="16dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Manage Diary Entries"
+                        android:fontFamily="@font/chewy"
+                        android:textSize="20sp"
+                        android:textColor="@color/sprout_dark"
+                        android:layout_marginBottom="8dp"/>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvEditDiary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:nestedScrollingEnabled="false"/>
+
+                    <Space android:layout_width="match_parent" android:layout_height="32dp"/>
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btnUpdatePlant"
+                        android:layout_width="match_parent"
+                        android:layout_height="55dp"
+                        android:text="Save Changes"
+                        android:background="@drawable/btn_register_bg"
+                        android:backgroundTint="@color/sprout_dark"
+                        android:fontFamily="@font/fredoka"
+                        android:textStyle="bold"
+                        android:textSize="20sp"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"/>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

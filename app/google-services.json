@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "286372848794",
+    "project_id": "sproutify-4cc8b",
+    "storage_bucket": "sproutify-4cc8b.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:286372848794:android:2af0d109ee04e8fe35eb23",
+        "android_client_info": {
+          "package_name": "com.example.sproutify"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDRxcbV_p_DSVbmm-ZRWHgu_MiS_kB1XAc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

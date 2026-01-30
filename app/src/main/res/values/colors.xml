@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="sprout_base">#F5F5DC</color>
+    <color name="sprout_dark">#2F4F4F</color>
+    <color name="sprout_light">#8FBC8F</color>
+    <color name="sprout_brown">#8B4513</color>
+    <color name="sprout_yellow">#FDE047</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color> <color name="black_overlay">#4D000000</color>
+</resources>

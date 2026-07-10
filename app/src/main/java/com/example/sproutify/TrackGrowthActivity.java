@@ -10,6 +10,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -26,6 +27,7 @@ public class TrackGrowthActivity extends AppCompatActivity {
     private RecyclerView rvHistory;
     private EditText etHeight, etDate, etWater, etFert;
     private FirebaseAuth mAuth;
+    private FirestoreManager firestoreManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,13 +37,14 @@ public class TrackGrowthActivity extends AppCompatActivity {
 
         db = new PlantDatabaseHelper(this);
         mAuth = FirebaseAuth.getInstance();
+        firestoreManager = new FirestoreManager(); // Initialize Cloud Manager
         plantId = getIntent().getIntExtra("PLANT_ID", -1);
 
         // Bind Views
         etHeight = findViewById(R.id.etGrowthHeight);
         etDate = findViewById(R.id.etGrowthDate);
-        etWater = findViewById(R.id.etGrowthWater); // New
-        etFert = findViewById(R.id.etGrowthFert);   // New
+        etWater = findViewById(R.id.etGrowthWater);
+        etFert = findViewById(R.id.etGrowthFert);
         rvHistory = findViewById(R.id.rvGrowthHistory);
         ImageButton btnBack = findViewById(R.id.btnBackGrowth);
         Button btnSave = findViewById(R.id.btnSaveGrowth);
@@ -90,11 +93,13 @@ public class TrackGrowthActivity extends AppCompatActivity {
                 }
             }
 
-
-            // Save to DB
+            // Save to Local DB
             db.addGrowth(plantId, height, date, water, fert);
 
-            Toast.makeText(this, "Progress Updated!", Toast.LENGTH_SHORT).show();
+            // Sync to Cloud
+            firestoreManager.saveGrowthToCloud(plantId, height, date, water, fert);
+
+            Toast.makeText(this, "Progress Updated & Synced!", Toast.LENGTH_SHORT).show();
 
             // Clear inputs and refresh list
             etHeight.setText("");
@@ -140,6 +145,31 @@ public class TrackGrowthActivity extends AppCompatActivity {
         public void onBindViewHolder(@NonNull Holder h, int i) {
             Map<String, String> data = list.get(i);
             h.tv.setText("📅 " + data.get("date") + "  —  📏 " + data.get("height") + " cm");
+
+            // Add long-press listener to the most recent item
+            if (i == 0) {
+                h.itemView.setOnLongClickListener(v -> {
+                    new AlertDialog.Builder(TrackGrowthActivity.this)
+                            .setTitle("Delete Latest Entry?")
+                            .setMessage("Are you sure you want to remove the most recent growth entry?")
+                            .setPositiveButton("Delete", (dialog, which) -> {
+
+                                // Delete Locally
+                                db.deleteLatestGrowthEntry(plantId);
+
+                                // Sync Deletion to Cloud
+                                firestoreManager.deleteLatestGrowthFromCloud(plantId);
+
+                                loadHistory(); // Refresh the list
+                                Toast.makeText(TrackGrowthActivity.this, "Latest entry removed.", Toast.LENGTH_SHORT).show();
+                            })
+                            .setNegativeButton("Cancel", null)
+                            .show();
+                    return true;
+                });
+            } else {
+                h.itemView.setOnLongClickListener(null); // Remove listener from other items
+            }
         }
 
         @Override

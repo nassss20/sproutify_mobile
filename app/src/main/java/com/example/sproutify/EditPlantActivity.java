@@ -46,6 +46,9 @@ public class EditPlantActivity extends AppCompatActivity {
     private String cameraPhotoPath;
     private FirebaseAuth mAuth;
 
+    // Add FirestoreManager instance
+    private FirestoreManager firestoreManager;
+
     // --- 1. Gallery Launcher ---
     private final ActivityResultLauncher<String> pickImageGallery = registerForActivityResult(
             new ActivityResultContracts.GetContent(),
@@ -79,6 +82,7 @@ public class EditPlantActivity extends AppCompatActivity {
 
         dbHelper = new PlantDatabaseHelper(this);
         mAuth = FirebaseAuth.getInstance();
+        firestoreManager = new FirestoreManager(); // Initialize Manager
         plantId = getIntent().getIntExtra("PLANT_ID", -1);
 
         imgPlant = findViewById(R.id.imgEditPlant);
@@ -243,7 +247,10 @@ public class EditPlantActivity extends AppCompatActivity {
         // Update DB
         dbHelper.updatePlant(plantId, userId, name, date, height, water, fert, notes, currentImagePath);
 
-        Toast.makeText(this, "Plant Updated!", Toast.LENGTH_SHORT).show();
+        // Sync Update to Firestore
+        firestoreManager.updatePlantInCloud(plantId, name, date, water, fert, height, notes);
+
+        Toast.makeText(this, "Plant Updated & Synced!", Toast.LENGTH_SHORT).show();
         setResult(RESULT_OK); // Signal back to Profile that it should refresh
         finish();
     }

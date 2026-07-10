@@ -237,7 +237,7 @@ public class PlantDatabaseHelper extends SQLiteOpenHelper {
         List<Map<String, String>> list = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(TABLE_GROWTH, null, COL_PLANT_ID_FK + "=?",
-                new String[]{String.valueOf(plantId)}, null, null, COL_GROWTH_DATE + " DESC");
+                new String[]{String.valueOf(plantId)}, null, null, COL_ID + " DESC");
 
         if (cursor.moveToFirst()) {
             do {
@@ -249,6 +249,20 @@ public class PlantDatabaseHelper extends SQLiteOpenHelper {
         }
         cursor.close();
         return list;
+    }
+    
+    public void deleteLatestGrowthEntry(int plantId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        // Find the ID of the most recent entry for this plant
+        Cursor cursor = db.query(TABLE_GROWTH, new String[]{COL_ID}, COL_PLANT_ID_FK + "=?",
+                new String[]{String.valueOf(plantId)}, null, null, COL_ID + " DESC", "1");
+
+        if (cursor.moveToFirst()) {
+            long latestId = cursor.getLong(0);
+            db.delete(TABLE_GROWTH, COL_ID + "=?", new String[]{String.valueOf(latestId)});
+        }
+        cursor.close();
+        db.close();
     }
 
     public List<DiaryEntry> getPlantDiary(int plantId) {

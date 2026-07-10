@@ -41,6 +41,9 @@ public class AddPlantActivity extends AppCompatActivity {
     private String cameraPhotoPath;
     private FirebaseAuth mAuth;
 
+    // Add FirestoreManager instance
+    private FirestoreManager firestoreManager;
+
     // Permission Launcher
     private final ActivityResultLauncher<String> requestPermissionLauncher = registerForActivityResult(
             new ActivityResultContracts.RequestPermission(),
@@ -83,6 +86,9 @@ public class AddPlantActivity extends AppCompatActivity {
 
         dbHelper = new PlantDatabaseHelper(this);
         mAuth = FirebaseAuth.getInstance();
+
+        // Initialize the Firestore Manager
+        firestoreManager = new FirestoreManager();
 
         // Bind Views
         imgSelectedPlant = findViewById(R.id.imgSelectedPlant);
@@ -219,10 +225,14 @@ public class AddPlantActivity extends AppCompatActivity {
         }
         String userId = currentUser.getUid();
 
+        // 1. Save to Local SQLite Database (Includes the Image Path)
         long result = dbHelper.addPlant(userId, name, datePlanted, currentImagePath, height, lastWatered, lastFertilized, notes);
 
         if (result != -1) {
-            Toast.makeText(this, "Plant Added! 🌱", Toast.LENGTH_SHORT).show();
+            // 2. Sync Text Data to Firebase Firestore silently in the background
+            firestoreManager.savePlantToCloud((int) result, name, datePlanted, lastWatered, lastFertilized, height, notes);
+
+            Toast.makeText(this, "Plant Added & Synced! 🌱", Toast.LENGTH_SHORT).show();
             setResult(RESULT_OK);
             finish();
         } else {

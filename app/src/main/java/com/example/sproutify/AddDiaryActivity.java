@@ -41,6 +41,9 @@ public class AddDiaryActivity extends AppCompatActivity {
     private Uri photoURI; // Camera URI
     private FirebaseAuth mAuth;
 
+    // Add FirestoreManager instance
+    private FirestoreManager firestoreManager;
+
     // 1. Gallery
     private final ActivityResultLauncher<String> pickImagesGallery = registerForActivityResult(
             new ActivityResultContracts.GetMultipleContents(),
@@ -78,6 +81,7 @@ public class AddDiaryActivity extends AppCompatActivity {
 
         db = new PlantDatabaseHelper(this);
         mAuth = FirebaseAuth.getInstance();
+        firestoreManager = new FirestoreManager(); // Initialize the cloud manager
         plantId = getIntent().getIntExtra("PLANT_ID", -1);
 
         // Verify the user owns this plant
@@ -151,13 +155,17 @@ public class AddDiaryActivity extends AppCompatActivity {
             return;
         }
 
+        // 1. Save locally to SQLite
         long diaryId = db.addDiary(plantId, title, content, date);
 
         for (Uri uri : selectedImages) {
             db.addDiaryImage(diaryId, uri.toString());
         }
 
-        Toast.makeText(this, "Memory Saved! 📖", Toast.LENGTH_SHORT).show();
+        // 2. Sync text content to Firestore
+        firestoreManager.saveDiaryToCloud(plantId, diaryId, title, content, date);
+
+        Toast.makeText(this, "Memory Saved & Synced! 📖", Toast.LENGTH_SHORT).show();
         finish();
     }
 

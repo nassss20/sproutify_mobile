@@ -1,25 +1,25 @@
-<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/sprout_base">
+    android:background="#F5F7F5">
 
+    <!-- STREAMING_CHUNK:Configuring the top app bar... -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/appBarDash"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:background="@color/sprout_dark"
+        android:background="#2E4F2B"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="My Garden"
-            android:fontFamily="@font/chewy"
+            android:fontFamily="sans-serif-black"
             android:textSize="24sp"
-            android:textColor="@color/sprout_base"
+            android:textColor="#FFFFFF"
             android:layout_marginStart="20dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -31,13 +31,14 @@
             android:layout_height="wrap_content"
             android:src="@android:drawable/ic_lock_power_off"
             android:background="?attr/selectableItemBackgroundBorderless"
-            app:tint="@color/sprout_base"
+            app:tint="#FFFFFF"
             android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <!-- STREAMING_CHUNK:Setting up the scrollable layout... -->
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefresh"
         android:layout_width="match_parent"
@@ -60,21 +61,58 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Hello, Gardener!"
-                    android:fontFamily="@font/chewy"
+                    android:fontFamily="sans-serif-black"
                     android:textSize="32sp"
-                    android:textColor="@color/sprout_dark"/>
+                    android:textColor="#2E4F2B"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <!-- STREAMING_CHUNK:Adding the new Weather Care Card... -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Organize your plants today."
-                    android:fontFamily="@font/fredoka"
-                    android:textSize="16sp"
-                    android:textColor="@color/sprout_brown"
-                    android:layout_marginTop="8dp"/>
+                    android:layout_marginTop="16dp"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="2dp"
+                    app:cardBackgroundColor="#E8F5E9">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <TextView
+                            android:id="@+id/tvWeatherLocation"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="📍 Locating..."
+                            android:textStyle="bold"
+                            android:textSize="14sp"
+                            android:layout_marginBottom="4dp"
+                            android:textColor="#3E683A"/>
+
+                        <TextView
+                            android:id="@+id/tvWeatherTemp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="🌤️ Fetching local weather..."
+                            android:textStyle="bold"
+                            android:textSize="18sp"
+                            android:textColor="#2E4F2B"/>
+
+                        <TextView
+                            android:id="@+id/tvCareAdvice"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Loading your daily plant care advice based on live weather data..."
+                            android:textSize="14sp"
+                            android:layout_marginTop="8dp"
+                            android:textColor="#3E683A"/>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
 
                 <Space android:layout_width="match_parent" android:layout_height="30dp"/>
 
+                <!-- STREAMING_CHUNK:Building the Plants Section... -->
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -84,9 +122,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="My Plants"
-                        android:fontFamily="@font/chewy"
+                        android:fontFamily="sans-serif-black"
                         android:textSize="24sp"
-                        android:textColor="@color/sprout_dark"/>
+                        android:textColor="#2E4F2B"/>
 
                     <ImageButton
                         android:id="@+id/btnAddPlant"
@@ -97,16 +135,15 @@
                         android:layout_centerVertical="true"
                         android:src="@android:drawable/ic_input_add"
                         android:background="?attr/selectableItemBackgroundBorderless"
-                        app:tint="@color/sprout_dark"/>
+                        app:tint="#2E4F2B"/>
 
                     <TextView
                         android:id="@+id/btnViewAllPlants"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="View All"
-                        android:fontFamily="@font/fredoka"
                         android:textStyle="bold"
-                        android:textColor="@color/sprout_dark"
+                        android:textColor="#2E4F2B"
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"/>
                 </RelativeLayout>
@@ -125,11 +162,11 @@
                     android:text="No plants yet! 🌱"
                     android:gravity="center"
                     android:padding="20dp"
-                    android:fontFamily="@font/fredoka"
                     android:visibility="gone"/>
 
                 <Space android:layout_width="match_parent" android:layout_height="30dp"/>
 
+                <!-- STREAMING_CHUNK:Building the Reminders Section... -->
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -139,9 +176,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Reminders"
-                        android:fontFamily="@font/chewy"
+                        android:fontFamily="sans-serif-black"
                         android:textSize="24sp"
-                        android:textColor="@color/sprout_dark"/>
+                        android:textColor="#2E4F2B"/>
 
                     <ImageButton
                         android:id="@+id/btnAddReminder"
@@ -152,16 +189,15 @@
                         android:layout_centerVertical="true"
                         android:src="@android:drawable/ic_input_add"
                         android:background="?attr/selectableItemBackgroundBorderless"
-                        app:tint="@color/sprout_dark"/>
+                        app:tint="#2E4F2B"/>
 
                     <TextView
                         android:id="@+id/btnViewAllReminders"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="View All"
-                        android:fontFamily="@font/fredoka"
                         android:textStyle="bold"
-                        android:textColor="@color/sprout_dark"
+                        android:textColor="#2E4F2B"
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"/>
                 </RelativeLayout>
@@ -186,7 +222,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="No pending tasks 🔔"
-                        android:fontFamily="@font/fredoka"
                         android:textSize="16sp"
                         android:layout_marginTop="8dp" />
                 </LinearLayout>
@@ -194,4 +229,6 @@
             </LinearLayout>
         </ScrollView>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

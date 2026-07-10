@@ -67,7 +67,7 @@ public class AddReminderActivity extends AppCompatActivity {
                 String amPm = (hourOfDay >= 12) ? "PM" : "AM";
                 int hour12 = (hourOfDay > 12) ? hourOfDay - 12 : hourOfDay;
                 if (hour12 == 0) hour12 = 12;
-                etTime.setText(String.format("%02d:%02d %s", hour12, minute, amPm));
+                etTime.setText(String.format(Locale.getDefault(), "%02d:%02d %s", hour12, minute, amPm));
             }, c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE), false).show();
         });
 
@@ -101,19 +101,19 @@ public class AddReminderActivity extends AppCompatActivity {
         DocumentReference newReminderRef = db.collection("users").document(user.getUid()).collection("reminders").document();
         String reminderId = newReminderRef.getId();
 
-
-        // Set the data
-        newReminderRef.set(reminder).addOnFailureListener(e -> {
-            Toast.makeText(getApplicationContext(), "Sync Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
-        });
-
-        // Give feedback and go back to dashboard
-        Toast.makeText(getApplicationContext(), "Reminder Added", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(AddReminderActivity.this, DashboardActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
-        finish();
+        // Set the data and wait for success before navigating away
+        newReminderRef.set(reminder)
+                .addOnSuccessListener(aVoid -> {
+                    Toast.makeText(getApplicationContext(), "Reminder Synced to Cloud!", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(AddReminderActivity.this, DashboardActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                    finish();
+                })
+                .addOnFailureListener(e -> {
+                    btnSave.setEnabled(true);
+                    btnSave.setText("Save");
+                    Toast.makeText(getApplicationContext(), "Sync Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                });
     }
-
-
 }

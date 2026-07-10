@@ -30,6 +30,9 @@ public class PlantProfileActivity extends AppCompatActivity {
     private boolean isDataUpdated = false;
     private FirebaseAuth mAuth;
 
+    // Add FirestoreManager instance
+    private FirestoreManager firestoreManager;
+
     private final ActivityResultLauncher<Intent> editPlantLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
@@ -50,6 +53,7 @@ public class PlantProfileActivity extends AppCompatActivity {
 
         dbHelper = new PlantDatabaseHelper(this);
         mAuth = FirebaseAuth.getInstance();
+        firestoreManager = new FirestoreManager(); // Initialize Manager
 
         // Bind Views
         imgPlant = findViewById(R.id.imgProfilePlant);
@@ -156,6 +160,10 @@ public class PlantProfileActivity extends AppCompatActivity {
                     if (currentUser != null) {
                         String userId = currentUser.getUid();
                         dbHelper.deletePlant(plantId, userId);
+
+                        // Sync Deletion to Firestore
+                        firestoreManager.deletePlantFromCloud(plantId);
+
                         setResult(RESULT_OK);
                         finish();
                     } else {
